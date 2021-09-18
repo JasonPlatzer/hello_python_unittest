@@ -23,6 +23,10 @@ def add_miles(vehicle, new_miles):
     if not isinstance(new_miles, (int, float)) or new_miles < 0:
         raise MileageError('Provide a positive number for new miles')
 
+    vehicle = vehicle.upper().strip()
+    if not vehicle:
+        raise MileageError('Provide a vehicle name')
+
     with sqlite3.connect(db_url) as conn:
         # Attempt to update miles
         rows_mod = conn.execute('UPDATE MILES SET total_miles = total_miles + ? WHERE vehicle = ?', (new_miles, vehicle))
@@ -31,6 +35,12 @@ def add_miles(vehicle, new_miles):
             conn.execute('INSERT INTO MILES VALUES (?, ?)', (vehicle, new_miles))
     conn.close()
 
+def update_vehicle(vehicle, updated_vehicle):
+    if not vehicle:
+        raise MileageError('Provide a vehicle name')
+    with sqlite3.connect(db_url) as conn:
+        rows_mod = conn.execute('UPDATE MILES SET vehicle = UPPER(?) WHERE vehicle = UPPER(?)', (updated_vehicle, vehicle))
+    conn.close()
 
 def main():
     while True:

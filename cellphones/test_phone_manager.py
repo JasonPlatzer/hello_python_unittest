@@ -49,7 +49,10 @@ class TestPhoneManager(unittest.TestCase):
         # TODO write this test and remove the self.fail() statement
         # TODO you'll need to fix the assign method in PhoneAssignments
 
-        self.fail()
+        test_phone = Phone(1,'Apple', 'Iphone5')
+        testAssignmentMgr = PhoneAssignments()
+        with self.assertIsNotNone(test_phone.employee_id):
+            testAssignmentMgr.assign(test_phone)
 
 
     def test_assign_phone_that_has_already_been_assigned_to_employee(self):
@@ -77,7 +80,14 @@ class TestPhoneManager(unittest.TestCase):
     def test_un_assign_phone(self):
         # TODO write this test and remove the self.fail() statement
         # Assign a phone, unasign the phone, verify the employee_id is None
-        self.fail()
+       # self.fail()
+        test_phone = Phone(1,'Apple', 'Iphone5')
+    
+        testAssignmentMgr = PhoneAssignments()
+        testAssignmentMgr.assign(test_phone)
+        with self.assertIsNone(test_phone):
+            testAssignmentMgr.un_assign(test_phone)    
+
 
 
     def test_get_phone_info_for_employee(self):

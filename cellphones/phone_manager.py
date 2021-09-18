@@ -46,12 +46,18 @@ class PhoneAssignments():
 
     def add_employee(self, employee):
         # TODO raise exception if two employees with same ID are added
-        self.employees.append(employee)
+        if employee not in self.employees:
+            self.employees.append(employee)
+        else:
+            raise PhoneError('Empoyee  already in database')
 
 
     def add_phone(self, phone):
         # TODO raise exception if two phones with same ID are added
-        self.phones.append(phone)
+        if phone.id not in self.phones:
+            self.phones.append(phone)
+        else:
+            raise PhoneError('id already added to database')
 
 
     def assign(self, phone_id, employee):
@@ -59,11 +65,26 @@ class PhoneAssignments():
         # TODO if phone is already assigned to an employee, do not change list, raise exception
         # TODO if employee already has a phone, do not change list, and raise exception
         # TODO if employee already has this phone, don't make any changes. This should NOT raise an exception.
+        add_phone = True
         for phone in self.phones:
             if phone.id == phone_id:
-                phone.assign(employee.id)
-                return
+                add_phone = False
+                raise PhoneError('ID already assigned')
+                
+            #else: phone.id = phone_id
+            if phone.employee_id == employee:
+                add_phone = False
+                raise PhoneError('Employee already assigned a phone')
 
+              
+
+        if add_phone: 
+                
+            self.phone.assign(phone)
+               
+               
+            
+                
 
     def un_assign(self, phone_id):
         # Find phone in list, set employee_id to None
@@ -81,6 +102,7 @@ class PhoneAssignments():
         for phone in self.phones:
             if phone.employee_id == employee.id:
                 return phone
+                
 
 
         return None
