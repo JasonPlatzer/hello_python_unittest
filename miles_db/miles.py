@@ -28,7 +28,7 @@ def add_miles(vehicle, new_miles):
         raise MileageError('Provide a vehicle name')
 
     with sqlite3.connect(db_url) as conn:
-        # Attempt to update miles  
+        # Attempt to update miles  x
         rows_mod = conn.execute('UPDATE MILES SET total_miles = total_miles + ? WHERE vehicle = ?', (new_miles, vehicle))
         if rows_mod.rowcount == 0:
             # If update is not made, vehicle is not yet in DB. Insert new vehicle
