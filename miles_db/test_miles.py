@@ -76,7 +76,7 @@ class TestMileageDB(TestCase):
             miles.add_miles('', 100)
 
 
-    # This is not a test method, instead, it's used by the test methods
+    # This is not a test method, instead, it's used by the test methods x
     def compare_db_to_expected(self, expected):
 
         conn = sqlite3.connect(self.test_db_url)
